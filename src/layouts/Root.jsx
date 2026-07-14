@@ -8,7 +8,7 @@ const Root = () => {
       <section className="">
         <Header></Header>
       </section>
-      <section className="">
+      <section className="max-w-7xl w-11/12 mx-auto my-8 lg:my-16">
         <Outlet></Outlet>
       </section>
       <section className="">

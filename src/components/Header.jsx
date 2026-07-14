@@ -1,6 +1,17 @@
 import { NavLink } from 'react-router';
+import useAuth from '../hooks/useAuth';
 
 const Header = () => {
+  const { user, signOutUser } = useAuth();
+
+  const handleSignOut = () => {
+    try {
+      signOutUser();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const links = (
     <>
       <li>
@@ -47,8 +58,11 @@ const Header = () => {
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">{links}</ul>
       </div>
-      <div className="navbar-end">
-        <a className="btn">Login</a>
+      <div className="navbar-end hidden lg:flex gap-2">
+        <span>{user?.displayName}</span>
+        <button onClick={handleSignOut} className="btn btn-sm">
+          Logout
+        </button>
       </div>
     </div>
   );
