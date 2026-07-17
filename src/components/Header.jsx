@@ -68,7 +68,7 @@ const Header = () => {
               onClick={() => setIsOpen(!isOpen)}
               type="button"
               className="text-gray-500 hover:text-gray-600focus:outline-none focus:text-gray-600 "
-              aria-label="toggle menu"
+              ariaLabel="toggle menu"
             >
               {!isOpen ? (
                 <svg
