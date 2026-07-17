@@ -1,7 +1,9 @@
+import { useState } from 'react';
 import { NavLink } from 'react-router';
 import useAuth from '../hooks/useAuth';
 
 const Header = () => {
+  const [isOpen, setIsOpen] = useState(false);
   const { user, signOutUser } = useAuth();
 
   const handleSignOut = () => {
@@ -13,58 +15,98 @@ const Header = () => {
   };
 
   const links = (
-    <>
+    <ul className="flex flex-col gap-4 sm:flex-row sm:items-center">
       <li>
-        <NavLink to="/">Home</NavLink>
+        <NavLink
+          to="/"
+          className="my-2 text-gray-300 transition-colors duration-300 transform  hover:text-blue-500  md:mx-4 md:my-0"
+        >
+          Home
+        </NavLink>
       </li>
       <li>
-        <NavLink to="/register">Register</NavLink>
+        <NavLink
+          to="/register"
+          className="my-2 text-gray-300 transition-colors duration-300 transform  hover:text-blue-500  md:mx-4 md:my-0"
+        >
+          Register
+        </NavLink>
       </li>
       <li>
-        <NavLink to="/signin">Signin</NavLink>
+        <NavLink
+          to="/signin"
+          className="my-2 text-gray-300 transition-colors duration-300 transform  hover:text-blue-500  md:mx-4 md:my-0"
+        >
+          Signin
+        </NavLink>
       </li>
-    </>
+      <li>
+        <button
+          onClick={handleSignOut}
+          className="my-2 text-gray-300 transition-colors duration-300 transform  hover:text-blue-500 md:mx-4 md:my-0"
+        >
+          Signout
+        </button>
+      </li>
+    </ul>
   );
   return (
-    <div className="navbar bg-base-300 shadow-sm">
-      <div className="navbar-start">
-        <div className="dropdown">
-          <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
+    <nav className="relative shadow bg-gray-800">
+      <div className="container px-6 py-4 mx-auto md:flex md:justify-between md:items-center">
+        <div className="flex items-center justify-between">
+          <a href="#">
+            <img
+              className="w-auto h-6 sm:h-7"
+              src="https://merakiui.com/images/full-logo.svg"
+              alt=""
+            />
+          </a>
+          <span className="text-gray-300">{user?.displayName}</span>
+
+          <div className="flex sm:hidden">
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              type="button"
+              className="text-gray-500 hover:text-gray-600focus:outline-none focus:text-gray-600 "
+              aria-label="toggle menu"
             >
-              {' '}
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M4 6h16M4 12h8m-8 6h16"
-              />{' '}
-            </svg>
+              {!isOpen ? (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="w-6 h-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M4 8h16M4 16h16" />
+                </svg>
+              ) : (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="w-6 h-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              )}
+            </button>
           </div>
-          <ul
-            tabIndex="-1"
-            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
-          >
-            {links}
-          </ul>
         </div>
-        <a className="btn btn-ghost text-xl">Solo Matrix</a>
+
+        <div
+          className={`
+    ${isOpen ? 'block' : 'hidden'}
+   mt-4 sm:block sm:mt-0
+  `}
+        >
+          {links}
+        </div>
       </div>
-      <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1">{links}</ul>
-      </div>
-      <div className="navbar-end hidden lg:flex gap-2">
-        <span>{user?.displayName}</span>
-        <button onClick={handleSignOut} className="btn btn-sm">
-          Logout
-        </button>
-      </div>
-    </div>
+    </nav>
   );
 };
 
