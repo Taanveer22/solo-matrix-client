@@ -18,6 +18,7 @@ export default function Carousel() {
   return (
     <>
       <Swiper
+        loop={true}
         spaceBetween={30}
         centeredSlides={true}
         autoplay={{

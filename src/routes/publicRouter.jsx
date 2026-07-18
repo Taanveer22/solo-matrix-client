@@ -12,6 +12,7 @@ let publicRouter = createBrowserRouter([
       {
         index: true,
         Component: Home,
+        loader: () => fetch(`${import.meta.env.VITE_API_URL}/jobs`),
       },
       {
         path: '/signin',
