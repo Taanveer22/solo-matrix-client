@@ -1,6 +1,7 @@
 import { createBrowserRouter } from 'react-router';
 import Root from '../layouts/Root';
 import Home from '../pages/Home';
+import JobCardDetails from '../pages/JobCardDetails';
 import Register from '../pages/Register';
 import Signin from '../pages/Signin';
 
@@ -13,6 +14,11 @@ let publicRouter = createBrowserRouter([
         index: true,
         Component: Home,
         loader: () => fetch(`${import.meta.env.VITE_API_URL}/jobs`),
+      },
+      {
+        path: '/jobDetails/:id',
+        Component: JobCardDetails,
+        loader: ({ params }) => fetch(`${import.meta.env.VITE_API_URL}/jobs/${params.id}`),
       },
       {
         path: '/signin',
